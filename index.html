@@ -16,7 +16,7 @@
       <div class="container" id="order-list">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
-               <div class="cart-item">
+               <div class="cart-item" id="mobile-div">
                   <div class="row">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
@@ -32,12 +32,12 @@
                                  class="fas fa-plus"></i></button>
                         </div>
                         <h5>$<span id="mobile-total">1219</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img src="images/remove.png" alt="" onclick="removeItemHandler('mobile')" class="remove-item">
                      </div>
                   </div>
                </div>
 
-               <div class="cart-item">
+               <div class="cart-item" id="case-div">
                   <div class="row">
                      <div class="col-md-7 center-item mx-auto">
                         <img src="images/product-2.png" alt="">
@@ -52,7 +52,7 @@
                                  class="fas fa-plus"></i></button>
                         </div>
                         <h5>$<span id="case-total">59</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img src="images/remove.png" alt="" onclick="removeItemHandler('case')" class="remove-item">
                      </div>
                   </div>
                </div>
@@ -92,7 +92,9 @@
    </section>
 
    <script>
-
+      function removeItemHandler(remove){
+         document.getElementById(remove + '-div').style.display='none';
+      }
       function displayNone(display) {
          if (display == true) {
             document.getElementById("order-list").style.display = "none";
