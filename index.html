@@ -20,7 +20,7 @@
                   <div class="row">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
-                        <h5>iPhone 11 128GB Black</h5>
+                        <h5>iPhone 11 128GB - Black</h5>
                      </div>
 
                      <div class="col-md-5 center-item">
@@ -45,9 +45,11 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default" onclick="productChangeHandler('case', false)"><i class="fas fa-minus"></i></button>
+                           <button class="btn btn-default" onclick="productChangeHandler('case', false)"><i
+                                 class="fas fa-minus"></i></button>
                            <input id="case-count" type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default" onclick="productChangeHandler('case', true)"><i class="fas fa-plus"></i></button>
+                           <button class="btn btn-default" onclick="productChangeHandler('case', true)"><i
+                                 class="fas fa-plus"></i></button>
                         </div>
                         <h5>$<span id="case-total">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
@@ -60,14 +62,14 @@
 
                      <div class="col-md-8">
                         <h5>Subtotal: </h5>
-                        <h5>Tax:</h5>
+                        <h5>Tax(2.5%):</h5>
                         <h5>Total:</h5>
                      </div>
 
                      <div class="col-md-4 status">
                         <h5>$ <span id="subtotal">1278.00</span></h5>
-                        <h5>$ <span id="tax">127.80</span></h5>
-                        <h5>$ <span id="total">1405.80</span></h5>
+                        <h5>$ <span id="tax">31.95</span></h5>
+                        <h5>$ <span id="total">1309.95</span></h5>
                      </div>
                   </div>
                </div>
@@ -79,15 +81,37 @@
       </div>
 
       <div class="m-5 p-5" id="order-info" style="display: none">
-         <div class="m-5 p-5 text-center text-success" style="border-radius: 30px; box-shadow: 10px 10px 20px gray;;">
-            <h2>Thank You for your order! <br><span class="text-info">Your order has been successfully!!!</span></h2>
+         <div class="m-5 p-5 text-center" style="border-radius: 30px; box-shadow: 10px 10px 20px gray;;">
+            <h2>Thank You for your order! <br><span>Your order has been successfully!!!</span></h2>
+            <h4 class="text-success">iPhone 11 128GB - Black total: <span class="text-primary" id="order-mobile" style="font-size: 1.4em"></span></h4>
+            <h4 class="text-success">iPhone 11 Silicone Case - Black total: <span class="text-primary" id="order-case" style="font-size: 1.4em"></span></h4>
+            <h4>Total cost: <span class="text-info" id="order-total" style="font-size: .8em"></span></h4>
             <button onclick="displayNone(false)" class="btn btn-success mt-4">Return Order</button>
          </div>
       </div>
    </section>
 
    <script>
-      function productChangeHandler(product, isIncrease){
+
+      function displayNone(display) {
+         if (display == true) {
+            document.getElementById("order-list").style.display = "none";
+            document.getElementById("order-info").style.display = "block";
+
+            const orderMobile = document.getElementById("mobile-count").value;
+            const orderCase = document.getElementById("case-count").value;
+            const totalCost = document.getElementById("total").innerText;
+            document.getElementById("order-mobile").innerText = orderMobile;
+            document.getElementById("order-case").innerText = orderCase;
+            document.getElementById("order-total").innerText = totalCost
+         }
+         if (display == false) {
+            document.getElementById("order-list").style.display = "block";
+            document.getElementById("order-info").style.display = "none";
+         }
+      }
+
+      function productChangeHandler(product, isIncrease) {
          const productCount = getProductInput(product);
          let newProductCount = productCount;
          if (isIncrease == true) {
@@ -99,17 +123,17 @@
          document.getElementById(product + "-count").value = newProductCount;
 
          let totalProduct = 0;
-         if(product == "mobile") {
+         if (product == "mobile") {
             totalProduct = newProductCount * 1219;
          }
-         if(product == "case") {
+         if (product == "case") {
             totalProduct = newProductCount * 59;
          }
          document.getElementById(product + "-total").innerText = totalProduct;
 
          calculateProduct()
       }
-      function calculateProduct(){
+      function calculateProduct() {
          const mobilePrice = getProductInput("mobile");
          const casePrice = getProductInput("case");
 
@@ -117,30 +141,21 @@
          const subtotalToFixed = subtotal.toFixed(2);
          document.getElementById("subtotal").innerText = subtotalToFixed;
 
-         const tax = subtotal * .1;
+         const tax = subtotal * .025;
          const taxToFixed = tax.toFixed(2)
          document.getElementById('tax').innerText = taxToFixed;
 
          const total = subtotal + tax;
-         
+
          document.getElementById("total").innerText = total.toFixed(2);
       }
-      function getProductInput(product){
+      function getProductInput(product) {
          const productInput = document.getElementById(product + "-count").value;
          const productCount = parseInt(productInput);
          return productCount;
       }
-   
-      function displayNone(display){
-         if(display == true){
-            document.getElementById("order-list").style.display="none";
-            document.getElementById("order-info").style.display="block";
-         }
-         if(display == false){
-            document.getElementById("order-list").style.display="block";
-            document.getElementById("order-info").style.display="none";
-         }
-      }
+
+
    </script>
 </body>
 
